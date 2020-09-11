@@ -1,0 +1,23 @@
+<div>
+    <div class="content-container">
+        <form class="form-horizontal" (ngSubmit)="onSubmit()" #registerStudent="ngForm">
+            <mat-dialog-content>
+                <div *ngFor="let s of students">
+
+                    <label>
+                        <input type="checkbox" name="id" value="{{s.id}}" [(ngModel)]="s.checked" />
+                        {{s.name}} {{s.surname}}
+                    </label>
+
+                </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+                <button mat-button type="submit" class="btn btn-secondary" style="width: 200px;">Regjistro</button>
+                <button mat-button matDialogClose class="btn btn-secondary"
+                    style="margin-left: 5px; width: 200px;">Anullo</button>
+
+            </mat-dialog-actions>
+        </form>
+    </div>
+</div>

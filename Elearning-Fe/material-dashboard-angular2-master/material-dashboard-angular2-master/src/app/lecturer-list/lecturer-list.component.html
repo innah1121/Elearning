@@ -1,0 +1,81 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Emer
+                                    </th>
+                                    <th>
+                                        Mbiemer
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Password
+                                    </th>
+                                    <th>
+                                        Data e regjistrimit
+                                    </th>
+                                    <th>
+                                        Fakulteti
+                                    </th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let l of lecturers">
+                                        <td>
+                                            {{ l.name }}
+                                        </td>
+                                        <td>
+                                            {{ l.surname }}
+                                        </td>
+                                        <td ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/">
+                                            {{ l.email }}
+                                        </td>
+                                        <td class="text-primary">
+                                            {{ l.password }}
+                                        </td>
+                                        <td class="text-primary">
+                                           {{ registrationDate }}
+                                        </td>
+                                        <td class="text-primary">
+                                           {{ faculty }}
+                                        </td>
+                                        <td >
+                                            <button mat-raised-button class="btn btn-danger btn-block " (click)="onDelete(l)" >Fshij</button>
+                                        </td>
+                                    </tr>
+                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="places-buttons">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                        <button mat-raised-button class="btn btn-danger btn-block" (click)="openDialog()">Shto pedagog</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+

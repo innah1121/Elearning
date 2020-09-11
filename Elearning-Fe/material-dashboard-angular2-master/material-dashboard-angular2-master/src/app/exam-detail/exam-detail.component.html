@@ -1,0 +1,63 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="center">
+            <div class="card">
+                <div class="card-body">
+                    <div [hidden]="submitted">
+                        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+                            <form (ngSubmit)="onSubmit()" #addExam="ngForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="name">Emri i testit</label>
+                                            <input type="text" size="50" class="form-control" id="name" required
+                                                [(ngModel)]="exam.name" [pattern]="pattern" name="name" #name="ngModel">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <mat-label>Kursi</mat-label>
+                                            <br><br>
+                                            <mat-select placeholder="Zgjidh kursin"
+                                                (selectionChange)="selectCourse($event.value)">
+                                                <mat-option *ngFor="let c of courses" [value]="c.id">
+                                                    {{c.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button mat-raised-button class="btn btn-danger btn-block"
+                                            (click)="onShowlist()">Zgjidh
+                                            nga pyetjet
+                                            e meparshme</button></div>
+                                    <div class="col-md-6">
+                                        <button mat-raised-button class="btn btn-danger btn-block"
+                                            (click)="openDialog()">Krijo pyetje</button></div>
+                                </div>
+
+                                <ul class="list-group" [style.visibility]="showList ? 'visible' : 'hidden'">
+                                    <div *ngFor="let question of oldQuestionList">
+
+                                        <label>
+                                            <input type="checkbox" name="id" value="{{question.id}}"
+                                                [(ngModel)]="question.checked" />
+                                            {{question.content}}
+                                        </label>
+
+                                    </div>
+                                </ul>
+                                <button mat-button type="submit" class="btn btn-secondary"
+                                    style="width: 200px;">Ruaj</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
