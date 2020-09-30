@@ -16,49 +16,17 @@
                                 {{t.type}}
                             </mat-option>
                         </mat-select>
-                    </div>
-                    <button mat-raised-button class="btn btn-danger btn-block" (click)="showOptions()">Shto
-                        pergjigjet</button>
-                    <br><br>
-
-                    <div [style.visibility]="displayCheckBox  ? 'visible' : 'hidden'">
-                        <div class="form-group">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                
-                                 <!-- <mat-checkbox class="example-margin" [(ngModel)]="checked">
-                                    <input type="text" class="form-control" id="content" required
-                                        [(ngModel)]="option.content" name="content">
-                                </mat-checkbox> -->
-
-                                <button (click)="addOption()" mat-mini-fab color="accent"
-                                    aria-label="Example icon button with a plus one icon">
-                                    <mat-icon>plus_one</mat-icon>
-                                </button>
-
-                                <div *ngFor="let div of options" id="div{{div}}">
-                                    <!-- <mat-checkbox class="example-margin" [(ngModel)]="checked">
-                                        <input type="text" class="form-control" id="option.content" required
-                                            [(ngModel)]="option.content" name="content">
-                                    </mat-checkbox> -->
-
-                                    <label>
-                                        <div fxLayout="row">
-                                        <input type="checkbox" name="id" value="{{option.id}}" [(ngModel)]="option.checked"/>
-                                        <input type="text" class="form-control" id="option.content" required
-                                            [(ngModel)]="option.content" name="content"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
-
+                    
 
                 </mat-dialog-content>
 
                 <mat-dialog-actions>
                     <button mat-button type="submit" class="btn btn-secondary" style="width: 200px;">Ruaj
                         pyetjen</button>
+                    <button mat-button type="button" class="btn btn-secondary" (click)="hapOpsionet()" style="width: 200px;">Shto
+                        pergjigjet </button>
                     <button mat-button matDialogClose class="btn btn-secondary"
                         style="margin-left: 5px; width: 200px;">Anullo</button>
 

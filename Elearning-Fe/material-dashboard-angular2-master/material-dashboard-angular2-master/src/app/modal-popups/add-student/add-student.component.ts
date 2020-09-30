@@ -14,48 +14,38 @@ import { Role } from 'app/model/Role';
   styleUrls: ['./add-student.component.css']
 })
 export class AddStudentComponent implements OnInit {
-  user : User  = new User();
-  roles : Role[];
-  universities : University[];
-  
+  user: User  = new User();
+  roles: Role[];
+  universities: University[];
   constructor(
-             private dialogRef : MatDialogRef<AddStudentComponent>,
-             @Inject(MAT_DIALOG_DATA) private data : any,
+             private dialogRef: MatDialogRef<AddStudentComponent>,
+             @Inject(MAT_DIALOG_DATA) private data: any,
              private router: Router,
-             private roleService : RoleService,
-             private uniService : UniversityService,
-             private userService : UserService) { }
+             private roleService: RoleService,
+             private uniService: UniversityService,
+             private userService: UserService) { }
 
   ngOnInit() {
-     
-    this.roleService.findAllRoles().map(t=>t.json()).toPromise().then(response => 
-      {this.roles = response as Role[];
-       
-       console.log(this.roles);  
-      })
-    
-    this.uniService.findAllUniversities().map(t=>t.json()).toPromise().then(response => 
-      {this.universities = response as University[];
-       console.log(this.universities);  
-      })
-    
-   
+    this.roleService.findAllRoles().map(t => t.json()).toPromise().then(response => { this.roles = response as Role[];
+       console.log(this.roles); })
+    this.uniService.findAllUniversities().map(t => t.json()).toPromise().then(response =>  {
+       this.universities = response as University[];
+       console.log(this.universities); })
   }
 
-  reloadData(){
+  reloadData() {
     this.router.navigate(['/studentet']);
   }
 
   changeRole(value) {
     console.log(value);
   }
-  onSubmit(){
-    this.dialogRef.close("It was saved");
-    console.log({"studentii":this.user})
-    this.userService.addStudent(this.user).subscribe(data =>{
+  onSubmit() {
+    this.dialogRef.close('It was saved');
+    console.log({'studentii': this.user})
+    this.userService.addStudent(this.user).subscribe(data => {
       console.log(data);
     })
-    
   }
 
 }

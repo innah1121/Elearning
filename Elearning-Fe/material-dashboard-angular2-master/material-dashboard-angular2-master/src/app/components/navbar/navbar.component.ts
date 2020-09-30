@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
+import { adminROUTES, studentROUTES, pedagogROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import { User } from 'app/model/User';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+    loggedUser: User;
     private listTitles: any[];
     location: Location;
       mobile_menu_visible: any = 0;
@@ -20,8 +22,17 @@ export class NavbarComponent implements OnInit {
           this.sidebarVisible = false;
     }
 
-    ngOnInit(){
-      this.listTitles = ROUTES.filter(listTitle => listTitle);
+    ngOnInit() {
+      this.loggedUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (this.loggedUser.role.description === 'Admin') {
+        this.listTitles = adminROUTES.filter(listTitle => listTitle);
+      }
+      if (this.loggedUser.role.description === 'Student') {
+        this.listTitles = studentROUTES.filter(listTitle => listTitle);
+      }
+      if (this.loggedUser.role.description === 'Pedagog') {
+        this.listTitles = pedagogROUTES.filter(menuItem => menuItem);
+      }
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {

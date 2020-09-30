@@ -60,20 +60,10 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    
-    { path: 'studentet',      component: StudentListComponent ,canActivate: [AppAuthGuardService], 
-    data: { 
-      expectedRole: 1
-    } 
-    },
+    { path: 'studentet',      component: StudentListComponent },
     { path: 'pedagoget',      component: LecturerListComponent  },
     { path: 'profili',   component: UserProfileComponent  },
     { path: 'kurset',      component: CourseListComponent  },
     { path: 'test',      component: ExamDetailComponent  },
     { path: 'kursetEStudentit',      component: StudentCoursesComponent  },
-    { path: 'table-list',     component: TableListComponent  },
-    //{ path: 'typography',     component: TypographyComponent },
-    //{ path: 'icons',          component: IconsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-   // { path: 'upgrade',        component: UpgradeComponent },
-];
+ ];

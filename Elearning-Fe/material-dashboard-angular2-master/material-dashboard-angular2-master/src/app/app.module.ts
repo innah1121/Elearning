@@ -45,6 +45,8 @@ import { StudentCoursesComponent } from './student-courses/student-courses.compo
 import { AddStudentComponent } from './modal-popups/add-student/add-student.component';
 import { RegisterStudentInCourseComponent } from './modal-popups/register-student-in-course/register-student-in-course.component';
 import { CreateCourseComponent } from './modal-popups/create-course/create-course.component';
+import { OptionComponent } from './option/option.component';
+import { StudentExamsComponent } from './modal-popups/student-exams/student-exams.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -81,11 +83,14 @@ import { CreateCourseComponent } from './modal-popups/create-course/create-cours
     AddStudentComponent,
     RegisterStudentInCourseComponent,
     CreateCourseComponent,
+    OptionComponent,
+    StudentExamsComponent,
     // StudentCoursesComponent
 
   ],
   entryComponents: [AddUserPopupComponent, ConfirmDeletionComponent, CreateQuestionPopupComponent,
-    AddStudentComponent, RegisterStudentInCourseComponent, CreateCourseComponent],
+    AddStudentComponent, RegisterStudentInCourseComponent, CreateCourseComponent, OptionComponent,
+    StudentExamsComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

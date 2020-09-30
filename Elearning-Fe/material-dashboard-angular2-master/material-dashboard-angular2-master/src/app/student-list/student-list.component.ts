@@ -14,7 +14,7 @@ import { AddStudentComponent } from 'app/modal-popups/add-student/add-student.co
   styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent implements OnInit {
-
+  userRoles: string[] = ['admin'];
   students: User[] = [];
   studentId: number;
   userUniversityInfo: UserUniversity;

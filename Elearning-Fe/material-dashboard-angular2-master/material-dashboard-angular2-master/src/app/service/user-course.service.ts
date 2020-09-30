@@ -14,18 +14,15 @@ export class UserCourseService {
     this.url = 'http://localhost:8080';
   }
 
-  public findUsersCourses(userId:number): Observable<any> {
+  public findUsersCourses(userId: number): Observable<any> {
      return this.http.get(`http://localhost:8080/userCourses/${userId}`);
   }
-  
-  public registerStudent(student:any ,studentId:number , courseId:number):Observable<any>{
-    return this.http.post(  this.url + `/registerStudent/${studentId}/${courseId}`,student);
+  public registerStudent(student: any , studentId: number , courseId: number): Observable<any> {
+    return this.http.post(  this.url + `/registerStudent/${studentId}/${courseId}`, student);
   }
 
-  shtooooo(c:any) :Observable<any>{
-    console.log({"postObject":c})
-    return this.http.post( this.url + `/registerStudent`,c);
+  shtooooo(c: any ): Observable<any> {
+    console.log({"postObject": c})
+    return this.http.post( this.url + `/registerStudent`, c);
   }
-  
-  
 }

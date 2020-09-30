@@ -13,7 +13,7 @@ import { ConfirmDeletionComponent } from 'app/modal-popups/confirm-deletion/conf
   styleUrls: ['./lecturer-list.component.css']
 })
 export class LecturerListComponent implements OnInit {
-
+  userRoles: string[] = ['admin'];
   lecturers: User[] = [];
   lecturerId: number;
   userUniversityInfo: UserUniversity;

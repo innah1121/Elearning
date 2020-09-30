@@ -10,22 +10,29 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    
 }
-export const ROUTES: RouteInfo[] = [
-    { path: '/studentet', title: 'Lista e studenteve',  icon:'content_paste', class: '' },
-    { path: '/pedagoget', title: 'Lista e pedagogeve',  icon:'content_paste', class: '' },
-    { path: '/profili', title: 'Profili im',  icon:'person', class: '' },
-    { path: '/kurset',  title: 'Kurset',  icon:'content_paste', class: '' },
-    { path: '/test',  title: 'Test',  icon:'content_paste', class: '' },
-    { path: '/kursetEStudentit',  title: 'Kurset e Mia',  icon:'content_paste', class: '' },
-   // { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-   // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-   // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-   // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-  // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-   // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
-];
-
+// export const ROUTES: RouteInfo[] = [
+//     { path: '/studentet', title: 'Lista e studenteve',  icon: 'content_paste', class: '' , role: ['Admin'] },
+//     { path: '/pedagoget', title: 'Lista e pedagogeve',  icon: 'content_paste', class: '' , role: ['Admin']},
+//     { path: '/profili', title: 'Profili im',  icon: 'person', class: '' , role: ['Pedagog', 'Student']},
+//     { path: '/kurset',  title: 'Kurset',  icon: 'content_paste', class: '' , role: ['Admin']},
+//     { path: '/test',  title: 'Test',  icon: 'content_paste', class: '' , role: ['Pedagog']},
+//     { path: '/kursetEStudentit',  title: 'Kurset e Mia',  icon: 'content_paste', class: '' , role: ['Student']},
+// ];
+export const adminROUTES: RouteInfo[] = [
+       { path: '/studentet', title: 'Lista e studenteve',  icon: 'content_paste', class: ''  },
+       { path: '/pedagoget', title: 'Lista e pedagogeve',  icon: 'content_paste', class: '' },
+]
+export const studentROUTES: RouteInfo[] = [
+     { path: '/profili', title: 'Profili im',  icon: 'person', class: '' },
+     { path: '/kursetEStudentit',  title: 'Kurset e Mia',  icon: 'content_paste', class: ''}
+]
+export const pedagogROUTES: RouteInfo[] = [
+  { path: '/profili', title: 'Profili im',  icon: 'person', class: '' },
+  { path: '/test',  title: 'Test',  icon: 'content_paste', class: '' },
+  { path: '/kurset',  title: 'Kurset',  icon: 'content_paste', class: '' },
+]
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -33,20 +40,21 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-  currentUser: User;
+  studentItems: any[];
+  loggedUser: User;
   currentUserSubscription: Subscription;
-  constructor(private authenticationService: AppAuthService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      if (user)
-        this.currentUser = user;
-        console.log(this.currentUser)
-    })
-   }
-  
+  constructor(private authenticationService: AppAuthService) {}
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-    if(this.currentUser.role.id===1){
-
+    this.loggedUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    console.log(this.loggedUser)
+    if (this.loggedUser.role.description === 'Pedagog') {
+      this.menuItems = pedagogROUTES.filter(menuItem => menuItem);
+    }
+    if (this.loggedUser.role.description === 'Admin') {
+      this.menuItems = adminROUTES.filter(menuItem => menuItem);
+    }
+    if (this.loggedUser.role.description === 'Student') {
+      this.menuItems = studentROUTES.filter(menuItem => menuItem);
     }
   }
   isMobileMenu() {

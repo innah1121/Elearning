@@ -7,27 +7,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AppAuthGuardService  implements CanActivate {
-  
   constructor(private router: Router,
               private authService: AppAuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authService.currentUserValue;
-    var expectedRole = route.data.expectedRole;
-    
-   
-    if (currentUser){
+    if (currentUser) {
     // authorised so return true
-      expectedRole = currentUser.role.id;
-      console.log({"roliiii": expectedRole});
       return true;
-      
     }
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['/login'],{ queryParams: { returnUrl: state.url }});
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
     return false;
     }
-
-   
-
 }

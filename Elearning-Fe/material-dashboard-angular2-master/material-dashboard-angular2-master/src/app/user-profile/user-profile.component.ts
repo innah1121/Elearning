@@ -12,44 +12,38 @@ import { UserUniversity } from 'app/model/UserUniversity';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  
   currentUser: User;
   currentUserSubscription: Subscription;
   users: User[] = [];
-  user : User= new User()
-  
-  facultyName:string
-
+  user: User = new User()
+  faculty: UserUniversity;
+  facultyName: string
   constructor(
-      private authenticationService: AppAuthService,
-      private userService: UserService,
-      private userUniversityService:UserUniversityService
+    private authenticationService: AppAuthService,
+    private userService: UserService,
+    private userUniversityService: UserUniversityService
   ) {
-      this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-           if(user)
-           this.currentUser = user;
-           console.log(this.currentUser)
-           
-          
-      });
-      
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+        console.log(this.currentUser);
+      }
+    });
   }
- 
   ngOnInit() {
     console.log(this.currentUser)
-    this.getFacultyInfo();  
-    
+    this.getFacultyInfo();
   }
 
-  getFacultyInfo(){
+  getFacultyInfo() {
     this.userUniversityService.findUsersFacultyInformation(this.currentUser.id).subscribe(res => {
-      console.log(JSON.parse(res.text()).university.name)
-      this.facultyName = JSON.parse(res.text()).university.name;
+      console.log(res.json())
+      this.facultyName = res.json().university.name;
     })
   }
 
-  onSubmit(){
-    this.userService.updateUser(this.user).subscribe(data=>{
+  onSubmit() {
+    this.userService.updateUser(this.currentUser).subscribe(data => {
       console.log(data)
     })
   }

@@ -14,7 +14,7 @@ import { CreateCourseComponent } from 'app/modal-popups/create-course/create-cou
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent implements OnInit {
-
+  userRoles: string[] = ['pedagog'];
   currentUser: User;
   currentUserSubscription: Subscription;
   users: User[] = [];
@@ -26,9 +26,10 @@ export class CourseListComponent implements OnInit {
     private authenticationService: AppAuthService,
     public dialog: MatDialog) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      if (user)
+      if (user) {
         this.currentUser = user;
-        console.log(this.currentUser)
+        console.log(this.currentUser);
+      }
     })
   }
   ngOnInit() {
@@ -47,7 +48,6 @@ export class CourseListComponent implements OnInit {
     const dialogRef = this.dialog.open(RegisterStudentInCourseComponent, {
       data: {
         courseid: value
-        
       }
     });
 
@@ -59,7 +59,6 @@ export class CourseListComponent implements OnInit {
   }
 
   createCourse() {
-    
     const dialogReff = this.dialog.open(CreateCourseComponent, {
       data: {
         teacherId: this.currentUser.id
@@ -70,6 +69,7 @@ export class CourseListComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
     });
-    dialogReff.afterClosed().subscribe(() => { this.reloadData(); })
+    dialogReff.afterClosed().subscribe(() => { this.reloadData(); });
   }
-}  
+}
+

@@ -1,0 +1,37 @@
+<div>
+    <div class="content-container">
+        <form class="form-horizontal" (ngSubmit)="onSubmit()" #registerStudent="ngForm">
+            <mat-dialog-content>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                                Testi
+                            </th>
+                            <th>
+                               
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let e of studentExams">
+                                <td>
+                                    {{ e.name }}
+                                </td>
+                                <td >
+                                    <button mat-raised-button class="btn rounded btn-danger btn-block " (click)="completeNow(e.id)" >Bej tani</button>
+                                </td>
+                            </tr>
+                         </tbody>
+                    </table>
+                </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+                <button mat-button type="submit" class="btn btn-secondary" style="width: 200px;"></button>
+                <button mat-button matDialogClose class="btn btn-secondary"
+                    style="margin-left: 5px; width: 200px;">Anullo</button>
+
+            </mat-dialog-actions>
+        </form>
+    </div>
+</div>

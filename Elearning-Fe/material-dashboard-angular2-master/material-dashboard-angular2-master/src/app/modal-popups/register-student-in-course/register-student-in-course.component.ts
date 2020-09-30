@@ -15,20 +15,19 @@ import { UserCourse } from 'app/model/UserCourse';
 export class RegisterStudentInCourseComponent implements OnInit {
 
   students: User[];
-  course:Course;
-  student:User;
-  c : UserCourse= new UserCourse();
- 
+  course: Course;
+  student: User;
+  c: UserCourse = new UserCourse();
   constructor(
     private dialogRef: MatDialogRef<RegisterStudentInCourseComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private userCourseService: UserCourseService,
-    private courseService:CourseService,
-    private userService:UserService) { }
+    private courseService: CourseService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.reloadData()
-    this.courseService.findCourseById(this.data.courseid).subscribe(res=>{
+    this.courseService.findCourseById(this.data.courseid).subscribe(res => {
       this.c.course = JSON.parse(res.text());
       console.log(this.c.course)
     })
@@ -46,14 +45,14 @@ export class RegisterStudentInCourseComponent implements OnInit {
       .map(opt => opt.id);
   }
 
-  onSubmit(){
-    this.dialogRef.close("It was saved");
-    console.dir({"studentet":this.selectedOptions});
-    this.selectedOptions.forEach(element=>{
-      this.userService.getUserById(element).subscribe(res=>{
-        this.c.user =JSON.parse(res.text());
+  onSubmit() {
+    this.dialogRef.close('It was saved');
+    console.dir({'studentet': this.selectedOptions});
+    this.selectedOptions.forEach(element => {
+      this.userService.getUserById(element).subscribe(res => {
+        this.c.user = JSON.parse(res.text());
         console.log(this.c.user)
-        this.userCourseService.shtooooo(this.c).subscribe(data =>{
+        this.userCourseService.shtooooo(this.c).subscribe(data => {
           console.log(data);
         });
       })

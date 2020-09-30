@@ -14,7 +14,7 @@ export class ExamQuestionService {
 
   
   //addExamQuestion
-  public addExamQuestion(examQuestion:any):Observable<any>{
-    return this.http.post( `http://localhost:8080/addExamQuestion`,examQuestion);
+  public addExamQuestion(examQuestion: any): Observable<any> {
+    return this.http.post( `http://localhost:8080/addExamQuestion`, examQuestion);
   }
 }

@@ -11,6 +11,8 @@ import { UserCourse } from 'app/model/UserCourse';
 import { CourseExamBean } from 'app/model/CourseExamBean';
 import { StudentExamService } from 'app/service/student-exam.service';
 import { ExamDone } from 'app/model/ExamDone';
+import { MatDialog } from '@angular/material/dialog';
+import { StudentExamsComponent } from 'app/modal-popups/student-exams/student-exams.component';
 
 @Component({
   selector: 'app-student-courses',
@@ -18,48 +20,48 @@ import { ExamDone } from 'app/model/ExamDone';
   styleUrls: ['./student-courses.component.css']
 })
 export class StudentCoursesComponent implements OnInit {
-
+  userRoles: string[] = ['student'];
   currentUser: User;
   currentUserSubscription: Subscription;
+  courses: any;
   users: User[] = [];
-
-
   exams: Exam[] = [];
-  
-  studentExams: StudentExam[] = [];
+  studentExams: any;
   examDone: boolean
   constructor(
     private examService: ExamService,
     private userCourseService: UserCourseService,
     private authenticationService: AppAuthService,
-    private studentExamService: StudentExamService) {
+    private studentExamService: StudentExamService,
+    public dialog: MatDialog) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      if (user)
+      if (user) {
         this.currentUser = user;
-      console.log(this.currentUser)
+      console.log(this.currentUser);
+      }
     })
   }
 
 
   ngOnInit() {
-    this.examService.findExamsCoursesByUserId(this.currentUser.id).map(t => t.json()).toPromise().then(response => {
-      this.exams = response as Exam[];
-      console.log(this.exams)
+    this.userCourseService.findUsersCourses(this.currentUser.id).subscribe(res => {
+      console.log(res.json())
+      this.courses = res.json();
+      console.log(this.courses)
     })
+  }
 
-    this.examService.findExamsCoursesByUserId(this.currentUser.id).map(t => t.json()).toPromise().then(response => {
-      this.exams = response as Exam[];
-      this.exams.forEach((element) => {
-        this.studentExamService.findUsersCourses({ userId: this.currentUser.id, examId: element.id }).map(t => t.json()).toPromise().then(response => {
-          this.studentExams = response as StudentExam[];
-          if (this.studentExams.length != 0) {
-            this.examDone = true
-          } else
-            this.examDone = false
+  showExams(value) {
+    console.log(value)
+    const dialogRef = this.dialog.open(StudentExamsComponent, {
+      data: {
+        courseid: value
+      }
+    });
 
-        });
-
-      });
-    })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 }

@@ -19,9 +19,9 @@ import { ExamQuestion } from 'app/model/ExamQuestion';
   styleUrls: ['./exam-detail.component.css']
 })
 export class ExamDetailComponent implements OnInit {
-
-  exam :Exam = new Exam();
-  examQuestion:ExamQuestion = new ExamQuestion();
+  userRoles: string[] = ['pedagog'];
+  exam: Exam = new Exam();
+  examQuestion: ExamQuestion = new ExamQuestion();
   currentUser: User;
   currentUserSubscription: Subscription;
 
@@ -30,17 +30,18 @@ export class ExamDetailComponent implements OnInit {
   oldQuestionList: Question[];
   selectedCourseId: number;
   courseId: number = 1;
-
+  savedExam: any;
   constructor(
     private authenticationService: AppAuthService,
     private courseService: CourseService,
     private questionService: QuestionService,
-    private examService:ExamService,
-    private examQuestionService:ExamQuestionService,
+    private examService: ExamService,
+    private examQuestionService: ExamQuestionService,
     public dialog: MatDialog) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      if (user)
+      if (user) {
         this.currentUser = user;
+      }
     });
   }
 
@@ -48,23 +49,20 @@ export class ExamDetailComponent implements OnInit {
     console.log(this.showList);
     this.courseService.findAllCourses().map(t => t.json()).toPromise().then(response => {
       this.courses = response as Course[];
-      console.log(this.courses);
+      // console.log(this.courses);
     })
   }
-  
-
   selectCourse(value) {
-    this.selectedCourseId=value
-    this.courseService.findCourseById(value).subscribe(res=>{
+    this.selectedCourseId = value
+    this.courseService.findCourseById(value).subscribe(res => {
       this.exam.course = JSON.parse(res.text());
-      
-      console.log(this.exam.course)
+      // console.log(this.exam.course)
     })
   }
 
   onShowlist() {
     this.showList = true;
-    console.log(this.showList);
+    // console.log(this.showList);
     this.questionService.findAllQuestionsByCourse(this.selectedCourseId).map(t => t.json()).toPromise().then(response => {
       this.oldQuestionList = response as Question[];
       console.log(this.oldQuestionList);
@@ -77,28 +75,31 @@ export class ExamDetailComponent implements OnInit {
       .map(opt => opt.id);
   }
 
-  onSubmit(){
-    this.examService.addExam(this.exam).subscribe(res=>{
+  onSubmit() {
+    this.examService.addExam(this.exam).subscribe(res => {
       console.log(res)
-    })
-    this.examQuestion.exam = this.exam;
-    this.selectedOptions.forEach(element=>{
-      this.questionService.getById(element).subscribe(res=>{
-        this.examQuestion.question = JSON.parse(res.text());
+      this.savedExam = res.json();
+      console.log(this.savedExam)
+      this.examQuestion.exam = this.savedExam;
+      console.log(this.savedExam);
+      this.selectedOptions.forEach(element => {
+        this.questionService.getById(element).subscribe(r => {
+          console.log(r.json())
+          this.examQuestion.question = r.json()
+          console.log(this.examQuestion);
+          this.examQuestionService.addExamQuestion(this.examQuestion).subscribe(result => {
+            console.log(result)
+          })
+        })
       })
-      this.examQuestionService.addExamQuestion(this.examQuestion).subscribe(res=>{
-        console.log(res)
-      })
-
     })
-
   }
 
   openDialog(): void {
     console.log(this.selectedCourseId);
     const dialogRef = this.dialog.open(CreateQuestionPopupComponent, {
       data: {
-        
+        savedExam: this.savedExam,
         courseId: this.selectedCourseId
       }
     });
