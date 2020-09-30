@@ -21,4 +21,12 @@ public class ExamServiceImpl implements ExamService{
 		return repo.findByCourseId(courseId);
 	}
 
+	@Override
+	public List<Exam> findUserCourseExam(int userId) {
+		// TODO Auto-generated method stub
+		return repo.findUserCourseExam(userId);
+	}
+	
+	
+
 }

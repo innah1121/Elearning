@@ -16,9 +16,9 @@ public interface ExamRepository extends JpaRepository<Exam, Integer> {
 	public List<Exam> findByCourseId(@Param("courseId")int courseId);
 	
 	
-	@Query(value = "SELECT *\r\n" + 
-			"	FROM elearn.exams \r\n" + 
-			"	INNER JOIN elearn.users_courses ON users_courses .course_id=exams .course_id\r\n" + 
-			"	where users_id = ?1 ", nativeQuery = true)
-    List<Exam> findUserCourseExam(int userId);
+	@Query(value = "SELECT * FROM elearn.exams\r\n" + 
+			" left join elearn.students_exams on elearn.students_exams.exam_id=elearn.exams.id\r\n" + 
+			" left join elearn.courses on elearn.courses.id=elearn.exams.course_id\r\n" + 
+			" where user_id= ?1 ", nativeQuery = true)
+    List<Exam> findUserCourseExam(@Param("userId")int userId);
 }

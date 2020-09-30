@@ -8,4 +8,6 @@ import com.platform.Elearning.Model.Exam;
 public interface ExamService {
 
 	public List<Exam> getExamsByCourse(int courseId);
+	
+	public List<Exam> findUserCourseExam(int userId);
 }

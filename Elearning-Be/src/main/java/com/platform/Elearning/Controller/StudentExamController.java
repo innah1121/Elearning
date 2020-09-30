@@ -21,7 +21,18 @@ public class StudentExamController {
 	
 	@GetMapping("/examsCourses/{userId}/{examId}")
 	public List<StudentExam> findByExamIdUserId(@PathVariable int userId , @PathVariable int examId) {
-		return repo.findByExamIdUserId(userId,examId);
+		//return repo.findByExamIdUserId(userId,examId);
+		return null;
+	}
+	
+	@GetMapping("/examsStudents/{userId}")
+	public List<StudentExam> findByIdUserId(@PathVariable int userId) {
+		return repo.findByUserId(userId);
+	}
+	
+	@GetMapping("/examsStudents/{examId}")
+	public List<StudentExam> findByExamId(@PathVariable int examId) {
+		return repo.findByExamId(examId);
 	}
 	
 }

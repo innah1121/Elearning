@@ -10,5 +10,8 @@ import com.platform.Elearning.Model.StudentExam;
 public interface StudentExamService {
 	
 	public List<StudentExam> examsByStudetId(int studentid);
+	
+	public List<StudentExam> findByUserId(int studentId) ;
+	
 
 }

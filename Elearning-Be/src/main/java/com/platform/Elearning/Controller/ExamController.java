@@ -46,4 +46,9 @@ public class ExamController {
 		return ResponseEntity.ok(examToSave);
 		
 	}
+	
+	@GetMapping("/findUserCourseExam/{userId}")
+	public List<Exam> findUserCourseExam(@PathVariable int userId) {
+		return repo.findUserCourseExam(userId);
+	}
 }

@@ -33,7 +33,7 @@ public class StudentExam {
 	private Exam exam;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "user_id")
 	private User user;
 
 }
